@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="et">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grand Rose SPA Hotelli finantsplaan</title>
+<style>
+:root{--paper:#f8f4f0;--ink:#2d2024;--rose:#762c45;--line:#e6d9dc;--muted:#65545b;--green:#23604b}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,sans-serif}main{max-width:1280px;margin:auto;padding:32px 24px 55px}header{padding:clamp(24px,5vw,60px);border-radius:20px;background:linear-gradient(125deg,#371626,#813652);color:#fff}h1,h2{font-family:Georgia,serif;line-height:1.12}h1{font-size:clamp(32px,6vw,66px);margin:12px 0}h2{font-size:28px;margin:0 0 16px}header p{max-width:760px;margin-bottom:0}header small{letter-spacing:.08em}.panel,.metric{background:white;border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:20px}.grid,.inputs,.actions{display:grid;gap:12px}.grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}.metric span,label small,.muted{color:var(--muted)}.metric strong{display:block;font-size:clamp(21px,3vw,30px);font-variant-numeric:tabular-nums}.negative{color:#9b2540}.inputs{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}.actions{display:flex;flex-wrap:wrap}.actions button{border:1px solid var(--rose);background:white;color:var(--rose);font:inherit;font-weight:600;border-radius:8px;padding:8px 13px;cursor:pointer}.actions button[aria-pressed=true]{background:var(--rose);color:white}label input{width:100%;display:block;font:inherit;padding:7px 9px;border-radius:6px;border:1px solid #9f8a91;color:var(--ink);background:white}label small{display:block}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}td,th{border-bottom:1px solid var(--line);padding:8px 10px;text-align:right;white-space:nowrap}th:first-child{text-align:left}thead,tfoot{background:#f8edf1}a{color:var(--rose)}.barrow{display:grid;grid-template-columns:64px 1fr 82px;align-items:center;gap:10px;margin:6px 0;font-size:14px}.track{background:#f4ebe9;border-radius:5px;overflow:hidden;height:12px;display:flex;align-items:stretch}.bar{background:var(--green);margin-left:50%}.bar.neg{background:var(--rose);margin-left:auto;margin-right:50%}.barrow span:last-child{text-align:right}.invalid{border-color:#9b2540}summary{cursor:pointer;font-weight:650}noscript{display:block;padding:16px;background:#fff1d6}@media(max-width:600px){main{padding:16px 12px}.panel{padding:15px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{padding:12px}}@media print{main{padding:0}header{background:white;color:black;border:1px solid #bbb}.actions{display:none}.panel{break-inside:avoid}.scroll{overflow:visible}table{font-size:8pt}td,th{padding:4px}}
+</style>
+</head>
+<body><main>
+<header><small>KURESSAARE · 2027–2031</small><h1>Grand Rose SPA Hotelli finantsplaan</h1><p>Interaktiivne tegevuseelarve olemasoleva hotelli jaoks. Prognoos kasutab näidiseeldusi. Hotelli tegelikud tulud, kulud, laenud ja rahajääk vajavad hotelli raamatupidamisandmeid.</p></header>
+<noscript>Luba brauseris JavaScript, et arvutused töötaksid.</noscript>
+<div class="grid" id="metrics" aria-label="2027. aasta võtmenäitajad"></div>
+<section class="panel"><h2>Stsenaariumid ja eeldused</h2><p class="muted">Vali stsenaarium ja kohanda sisendeid. Sisesta tulud ja kulud käibemaksuta. Kõik rahasummad on eurodes.</p><div class="actions" id="buttons"></div><p id="status" role="status"></p><div class="inputs" id="inputs"></div>
+<details><summary>Kuude täituvus ja toahinna kordajad</summary><p class="muted">Kuukordaja rakendub stsenaariumi baashinnale. Täituvus ja hind on planeerimise eeldused.</p><div class="scroll"><table><thead><tr><th scope="col">Kuu</th><th scope="col">Täituvus %</th><th scope="col">Hinnakordaja</th></tr></thead><tbody id="season"></tbody></table></div></details>
+</section>
+<section class="panel"><h2>2027. aasta rahavoog kuude kaupa</h2><p class="muted">Rahavoog pärast intresse, laenu põhiosa ja investeeringuid. Summad on ümardatud.</p><div id="chart"></div></section>
+<section class="panel"><h2>2027. aasta kuueelarve</h2><div class="scroll" tabindex="0" role="region" aria-label="Kuueelarve"><table id="monthly"></table></div></section>
+<section class="panel"><h2>Kasumiprognoos ja rahavoog 2027–2031</h2><div class="scroll" tabindex="0" role="region" aria-label="Viie aasta prognoos"><table id="annual"></table></div><p id="cashNote"></p></section>
+<section class="panel"><h2>Stsenaariumide võrdlus</h2><p class="muted">2027. aasta võrdlus kasutab kolme algset stsenaariumi. Sisendite muutmine mõjutab ülal kuvatavat prognoosi.</p><div class="scroll" tabindex="0"><table id="compare"></table></div></section>
+<section class="panel"><h2>Arvutuskäik ja allikad</h2>
+<ul>
+<li>Hotelli ametliku loetelu põhjal on mudelis 66 tuba (56 kahekohalist, 8 Deluxe-tuba ja 2 sviiti). Sama lehe sissejuhatus mainib 10 Deluxe-tuba. Müüdavate tubade arv tuleb kinnitada hotelliga. Majutuse hind sisaldab hommikusööki ning spaa- ja saunakeskuse külastust. Mudelis kajastuvad restoranis ja spaas ainult eraldi tasulised müügid. <a href="https://grandrose.ee/spaa-hotell-kuressaares/">Grand Rose SPA Hotell</a></li>
+<li>Majutustulu = müüdud toaööd × keskmine netotubade hind (ADR). Restorani- ja spaatulu koosneb müüdud toaöödega seotud lisamüügist ning eraldi arvestatud väliskülastajate tulust. Konverentsi- ja muu tulu jaguneb kuude vahel võrdselt.</li>
+<li>Majutuse muutuvkulu sisaldab koristust, pesu ja hommikusööki. Restorani ja spaa muutuvkulu rakendub vastava üksuse müügile. Broneerimiskulu on kaalutud määr kogu majutustulult. Püsikulud sisaldavad tööandja kogukulu ja jagunevad kuude vahel võrdselt.</li>
+<li>EBITDA on käive miinus muutuv- ja püsikulud. Maksueelne tulemus lahutab EBITDA-st kulumi ja intressikulu. Raha muutus lahutab EBITDA-st intressi, põhiosa ning investeeringud. Aasta põhiosa piirab laenujääk ja intress põhineb kuu algjäägil.</li>
+<li>Tasuvuspunkt väljendab aastast täituvust, mil EBITDA jõuab nulli, eeldades sama hooajalist hinnataset ja lisamüüki toaöö kohta ning samas mahus muud müüki. Viie aasta prognoosis jääb kuine täituvus samaks. Müügihinnad ja tegevuskulud kasvavad valitud määradega. Kui ühtegi toaööd pole müüdud, kasutab tasuvuspunkt kalendripäevadega kaalutud toahinda. Käibekapitali muutus, käibemaksu tasumise ajastus, kasumijaotuse maksud ja uue laenu väljamaksed jäävad arvutusest välja. Mudel eeldab laekumisi ja makseid samal kuul.</li>
+<li>MTA avaldatud määrad on majutusele või majutusele koos hommikusöögiga 13% ja standardmäär 24%. Teenusepakettide maksukäsitlus sõltub teenuse sisust. <a href="https://www.emta.ee/en/business-client/taxes-and-payment/value-added-tax/vat-rates-and-supply-exempt-tax/supply-taxable-13-vat-rate">Maksu- ja Tolliamet</a></li>
+<li>Saare maakonna ööbimised sobivad hooajalisuse kontrolliks. Hotelli enda täituvuse ja hindade kinnitamiseks on vaja kuupõhist broneeringuajalugu. <a href="https://andmed.stat.ee/et/stat/majandus__turism-ja-majutus__majutus/TU131">Statistikaamet TU131</a></li>
+</ul></section>
+</main>
+<script>
+'use strict';
+const months = ['Jaanuar','Veebruar','Märts','Aprill','Mai','Juuni','Juuli','August','September','Oktoober','November','Detsember'];
+const fields = [
+ ['rooms','Müüdavaid tube',66,1,1000,1],['adr','Baashind toaöö kohta',96,0,10000,1],
+ ['food','Restorani lisamüük toaöö kohta',24,0,1000,1],['spa','Spaa lisamüük toaöö kohta',18,0,1000,1],
+ ['foodExt','Väliskülastajate restoranitulu aastas',165000,0,1e8,100],['spaExt','Väliskülastajate spaatulu aastas',125000,0,1e8,100],
+ ['other','Konverentsi- ja muu tulu aastas',55000,0,1e8,100],['roomCost','Majutuse muutuvkulu toaöö kohta',17,0,1000,1],
+ ['foodCost','Restorani muutuvkulu %',34,0,100,1],['spaCost','Spaa muutuvkulu %',24,0,100,1],
+ ['commission','Broneerimiskulu % majutustulust',8,0,100,.1],['payroll','Tööandja kogukulu aastas',1050000,0,1e8,100],
+ ['energy','Energia ja vesi aastas',225000,0,1e8,100],['fixed','Muud püsikulud aastas',300000,0,1e8,100],
+ ['capex','Investeeringud aastas',140000,0,1e8,100],['depreciation','Kulum aastas',180000,0,1e8,100],
+ ['cash','Raha 2027. aasta alguses',180000,0,1e8,100],['debt','Laenujääk 2027. aasta alguses',1000000,0,1e8,100],
+ ['interest','Aastane laenuintress %',5.5,0,100,.1],['principal','Laenu põhiosa tagasimakse aastas',100000,0,1e8,100],
+ ['salesGrowth','Müügihindade ja muu müügi kasv aastas %',3,-100,100,.1],
+ ['costGrowth','Tegevuskulude kasv aastas %',4,-100,100,.1]
+];
+const base = Object.fromEntries(fields.map(([key,,v]) => [key,v]));
+const occupancy = [43,50,48,52,61,73,90,86,67,56,50,63];
+const rates = [.80,.85,.85,.90,.95,1.12,1.40,1.30,1,.92,.85,1.04];
+const scenarios = {
+ 'Konservatiivne': {...base,adr:85,food:21,spa:15,foodExt:140000,spaExt:100000,other:45000,occ:occupancy.map(v=>v-9),rates},
+ 'Baas': {...base,occ:occupancy,rates},
+ 'Optimistlik': {...base,adr:108,food:27,spa:21,foodExt:190000,spaExt:150000,other:65000,payroll:1120000,occ:occupancy.map(v=>Math.min(100,v+8)),rates}
+};
+const money = new Intl.NumberFormat('et-EE',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+const num = new Intl.NumberFormat('et-EE',{maximumFractionDigits:0});
+const pct = x => Number.isFinite(x) ? new Intl.NumberFormat('et-EE',{style:'percent',maximumFractionDigits:1}).format(x) : '–';
+const eur = v => Number.isFinite(v) ? money.format(Math.abs(v)<.005 ? 0 : v) : '–';
+const el = id => document.getElementById(id);
+const sum = (rows,key) => rows.reduce((total,row)=>total+row[key],0);
+function forecast(p){
+ let cash=p.cash, debt=p.debt;
+ return Array.from({length:5},(_,y)=>{
+  const year=2027+y;
+  const sales=(1+p.salesGrowth/100)**y, cost=(1+p.costGrowth/100)**y;
+  const rows=months.map((_,m)=>{
+   const capacity=p.rooms*new Date(Date.UTC(year,m+1,0)).getUTCDate();
+   const nights=capacity*p.occ[m]/100;
+   const room=nights*p.adr*p.rates[m]*sales;
+   const food=(nights*p.food+p.foodExt/12)*sales;
+   const spa=(nights*p.spa+p.spaExt/12)*sales;
+   const other=p.other*sales/12;
+   const revenue=room+food+spa+other;
+   const variable=nights*p.roomCost*cost+room*p.commission/100+food*p.foodCost/100+spa*p.spaCost/100;
+   const payroll=p.payroll*cost/12, energy=p.energy*cost/12, fixed=p.fixed*cost/12;
+   const ebitda=revenue-variable-payroll-energy-fixed;
+   const depreciation=p.depreciation/12, capex=p.capex/12;
+   const interest=debt*p.interest/1200, principal=Math.min(debt,p.principal/12);
+   const profit=ebitda-depreciation-interest, flow=ebitda-capex-interest-principal;
+   cash+=flow;
+   debt-=principal;
+   return {capacity,nights,room,food,spa,other,revenue,variable,payroll,energy,fixed,ebitda,depreciation,capex,interest,principal,profit,flow,cash,debt};
+  });
+  const totals=Object.fromEntries(Object.keys(rows[0]).map(key=>[key,sum(rows,key)]));
+  return {...totals,cash,debt,year,rows};
+ });
+}
+function ratios(y,p){
+ const occ=y.capacity ? y.nights/y.capacity : NaN;
+ const adr=y.nights ? y.room/y.nights : NaN;
+ const ancillary=p.foodExt*(1-p.foodCost/100)+p.spaExt*(1-p.spaCost/100)+p.other;
+ const roomPrice = y.nights ? adr : sum(y.rows.map((row,i)=>({weighted:row.capacity*p.adr*p.rates[i]})),'weighted')/y.capacity;
+ const contribution = roomPrice*(1-p.commission/100)+p.food*(1-p.foodCost/100)+p.spa*(1-p.spaCost/100)-p.roomCost;
+ const fixed=y.payroll+y.energy+y.fixed-ancillary;
+ return {occ,adr,revpar:y.room/y.capacity,margin:y.revenue ? y.ebitda/y.revenue : NaN,
+  breakEven: fixed<=0 && contribution>=0 ? 0 : contribution>0 ? fixed/(contribution*y.capacity) : NaN};
+}
+const input = (key,v,min,max,step,attributes='')=>'<input id="'+key+'" type="number" value="'+v+'" min="'+min+'" max="'+max+'" step="'+step+'" required '+attributes+'>';
+el('inputs').innerHTML=fields.map(([key,label,v,min,max,step])=>'<label>'+label+input(key,v,min,max,step)+'</label>').join('');
+el('season').innerHTML=months.map((m,i)=>'<tr><th scope="row">'+m+'</th><td>'+input('occ'+i,occupancy[i],0,100,'any','aria-label="'+m+' täituvus"')+'</td><td>'+input('rate'+i,rates[i],0,10,'any','aria-label="'+m+' hinnakordaja"')+'</td></tr>').join('');
+const buttons=Object.keys(scenarios).map(key=>'<button type="button" data-scenario="'+key+'" aria-pressed="false">'+key+'</button>');
+el('buttons').innerHTML=buttons.join('')+'<button type="button" id="print">Prindi / salvesta PDF</button>';
+el('print').addEventListener('click',()=>window.print());
+const controls=[...document.querySelectorAll('input')];
+function choose(key){
+ const p=scenarios[key];
+ fields.forEach(([name])=>{el(name).value=p[name]});
+ months.forEach((_,i)=>{el('occ'+i).value=p.occ[i];el('rate'+i).value=p.rates[i]});
+ document.querySelectorAll('[data-scenario]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.scenario===key)));
+ render();
+}
+document.querySelectorAll('[data-scenario]').forEach(b=>b.addEventListener('click',()=>choose(b.dataset.scenario)));
+controls.forEach(control=>control.addEventListener('input',()=>{
+ document.querySelectorAll('[data-scenario]').forEach(b=>b.setAttribute('aria-pressed','false'));
+ render();
+}));
+const header = cols => '<thead><tr>'+cols.map(x=>'<th scope="col">'+x+'</th>').join('')+'</tr></thead>';
+const tr = (label,values) => '<tr><th scope="row">'+label+'</th>'+values.map(v=>'<td>'+v+'</td>').join('')+'</tr>';
+const annualLines=[
+ ['Müüdud toaööd','nights',num.format],['Majutus','room'],['Restoran','food'],['Spaa','spa'],['Konverents ja muu','other'],
+ ['Käive','revenue'],['Muutuvkulud','variable'],['Tööjõud','payroll'],['Energia ja vesi','energy'],['Muud püsikulud','fixed'],
+ ['EBITDA','ebitda'],['Kulum','depreciation'],['Intressid','interest'],['Maksueelne tulemus','profit'],
+ ['Investeeringud','capex'],['Laenu põhiosa','principal'],['Raha muutus','flow'],['Raha aasta lõpus','cash'],['Laenujääk aasta lõpus','debt']
+];
+function render(){
+ const invalid=controls.filter(control=>!control.validity.valid);
+ controls.forEach(control=>control.classList.toggle('invalid',!control.validity.valid));
+ if(invalid.length){
+  el('status').textContent='Kontrolli märgitud sisendeid. Tulemused näitavad viimast kehtivat arvutust.';
+  return;
+ }
+ el('status').textContent='';
+ const p=Object.fromEntries(fields.map(([name])=>[name,el(name).valueAsNumber]));
+ p.occ=months.map((_,i)=>el('occ'+i).valueAsNumber);
+ p.rates=months.map((_,i)=>el('rate'+i).valueAsNumber);
+ const years=forecast(p), y=years[0], r=ratios(y,p);
+ const breakeven = r.breakEven>1 ? 'Üle 100%' : pct(r.breakEven);
+ const kpis=[['Käive 2027',eur(y.revenue)],['EBITDA 2027',eur(y.ebitda)],['EBITDA marginaal',pct(r.margin)],['Toatäituvus',pct(r.occ)],['Netohind / toaöö',eur(r.adr)],['Majutustulu / saadaval toaöö',eur(r.revpar)],['EBITDA tasuvuspunkt',breakeven],['Raha aasta lõpus',eur(y.cash)]];
+ el('metrics').innerHTML=kpis.map(([label,value])=>'<div class="metric"><span>'+label+'</span><strong>'+value+'</strong></div>').join('');
+ const columns=['room','food','spa','other','revenue','ebitda','flow','cash'];
+ el('monthly').innerHTML=header(['Kuu','Täituvus','Majutus','Restoran','Spaa','Muu','Käive','EBITDA','Raha muutus','Raha lõpus'])+
+ '<tbody>'+y.rows.map((m,i)=>tr(months[i],[pct(m.nights/m.capacity),...columns.map(k=>eur(m[k]))])).join('')+'</tbody>'+
+ '<tfoot>'+tr('2027',[pct(r.occ),...columns.map(k=>eur(y[k]))])+'</tfoot>';
+ el('annual').innerHTML=header(['Näitaja',...years.map(a=>a.year)])+'<tbody>'+
+ annualLines.map(([label,key,format=eur])=>tr(label,years.map(a=>format(a[key])))).join('')+'</tbody>';
+ const max=Math.max(1,...y.rows.map(m=>Math.abs(m.flow)));
+ el('chart').innerHTML=y.rows.map((m,i)=>'<div class="barrow"><span>'+months[i].slice(0,3)+'</span><div class="track" aria-hidden="true"><div class="bar '+(m.flow<0?'neg':'')+'" style="width:'+(Math.abs(m.flow)/max*50)+'%"></div></div><span>'+eur(m.flow)+'</span></div>').join('');
+ const floor=Math.min(p.cash,...years.flatMap(a=>a.rows.map(m=>m.cash)));
+ el('cashNote').textContent=floor<0 ? 'Suurim prognoositud rahapuudujääk viie aasta jooksul on '+eur(-floor)+'.' : 'Madalaim prognoositud rahajääk viie aasta jooksul koos algjäägiga on '+eur(floor)+'.';
+}
+el('compare').innerHTML=header(['Stsenaarium','Täituvus','Netohind / toaöö','Käive','EBITDA','Raha muutus'])+'<tbody>'+
+ Object.entries(scenarios).map(([name,p])=>{
+ const y=forecast(p)[0], r=ratios(y,p);
+ return tr(name,[pct(r.occ),eur(r.adr),eur(y.revenue),eur(y.ebitda),eur(y.flow)]);
+ }).join('')+'</tbody>';
+choose('Baas');
+</script>
+</body></html>
